@@ -15,6 +15,7 @@ namespace _01___Generic_Box
 
         public BoxCollection()
         {
+
             listBoxes = new List<Box>();
         }
 
@@ -26,7 +27,6 @@ namespace _01___Generic_Box
 
         public void Add(Box item)
         {
-
             if (Contains(item))
             {
                 Console.WriteLine("Det finns redan en låda med måtten: {0} x {1} x {2}", item.Base, item.Height, item.Length);
@@ -35,7 +35,6 @@ namespace _01___Generic_Box
             {
                 listBoxes.Add(item);
             }
-
         }
 
         public void Clear()

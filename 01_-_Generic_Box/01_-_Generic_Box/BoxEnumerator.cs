@@ -38,15 +38,16 @@ namespace _01___Generic_Box
 
         public bool MoveNext()
         {
-            if (++curIndex >= boxes.Count())
+            curIndex++;
+            if (curIndex < boxes.Count())
             {
-                return false;
+                curBox = boxes[curIndex];
+                return true;
             }
             else
             {
-                curBox = boxes[curIndex];
-            }
-            return true;
+                return false;
+            }   
         }
 
         public void Reset()
