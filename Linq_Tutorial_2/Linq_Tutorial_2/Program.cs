@@ -38,7 +38,7 @@ namespace Linq_Tutorial_2
             }
 
             ///Query syntax
-            Console.WriteLine("\nQuery Syntax");     
+            Console.WriteLine("\nQuery Syntax");
             var dbS = (from name in DS
                        where name is string && name.ToString().Length > 4
                        select name.ToString());
@@ -69,7 +69,7 @@ namespace Linq_Tutorial_2
             ///StringComparer
             ///Query syntax
             Console.WriteLine("Query syntax");
-            string[] arrStr1 = { "HuIbury", "Circhester", "Hammerlocke", "Stow-On-Side", "Motostoke"};
+            string[] arrStr1 = { "HuIbury", "Circhester", "Hammerlocke", "Stow-On-Side", "Motostoke" };
             string[] arrStr2 = { "Hulbury", "Hammerlocke", "Wyndon", "Stow-On-Side", "motostoke" };
             var querySyn = (from s in arrStr2 select s).Except(arrStr1, StringComparer.OrdinalIgnoreCase).ToList();
             foreach (string city in querySyn)
@@ -83,6 +83,110 @@ namespace Linq_Tutorial_2
             foreach (string city in MAS)
             {
                 Console.WriteLine(city);
+            }
+
+            List<int> dbint3 = new List<int>()
+            {
+                1,2,3,4,5,6
+            };
+            List<int> dbint4 = new List<int>()
+            {
+                1,3,5,8,9,10
+            };
+
+            ///Intersect
+            Console.WriteLine("----Method syntax------");
+            var methSynth = dbint3.Intersect(dbint4).ToList();
+            foreach (var item in methSynth)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("----Query syntax-----");
+            var querSynth = (from n in dbint3 select n).Intersect(dbint4).ToList();
+            foreach (var item in querSynth)
+            {
+                Console.WriteLine(item);
+            }
+
+            ///Intersect ignorecase
+            string[] arrStr3 = { "HuIbury", "Circhester", "Hammerlocke", "Stow-On-Side", "Motostoke" };
+            string[] arrStr4 = { "Hulbury", "Hammerlocke", "Wyndon", "Stow-On-Side", "motostoke" };
+
+            ///Method syntax
+            Console.WriteLine("----Method syntax------");
+            var ms = arrStr3.Intersect(arrStr4, StringComparer.OrdinalIgnoreCase).ToList();
+            foreach (var item in ms)
+            {
+                Console.WriteLine(item);
+            }
+
+            ///Query syntax
+            Console.WriteLine("---Query syntax----");
+            var qs = (from c in arrStr3 select c).Intersect(arrStr4, StringComparer.OrdinalIgnoreCase).ToList();
+            foreach (var item in qs)
+            {
+                Console.WriteLine(item);
+            }
+
+            ///Union syntax
+            Console.WriteLine("UNION");
+            List<int> listInt1 = new List<int>()
+            {
+                1,2,3,4,5,6
+            };
+            List<int> listInt2 = new List<int>()
+            {
+                1,3,5,8,9,10
+            };
+
+            ///Method
+            Console.WriteLine("Method synth");
+            var uniMeth = listInt1.Union(listInt2).ToList();
+            foreach (var item in uniMeth)
+            {
+                Console.WriteLine(item);
+            }
+
+            ///Query
+            Console.WriteLine("Query synth");
+            var uniQue = (from n in listInt1 select n)
+                         .Union(listInt2).ToList();
+            foreach (var item in uniQue)
+            {
+                Console.WriteLine(item);
+            }
+
+            List<Person> people1 = new List<Person>()
+            {
+                new Person(){ID = 1, Name = "Peony"},
+                new Person(){ID = 2, Name = "Mustard"},
+                new Person(){ID = 3, Name = "Klara"},
+                new Person(){ID = 4, Name = "Avery"},
+            };
+            List<Person> people2 = new List<Person>()
+            {
+                new Person(){ID = 4, Name = "Avery"},
+                new Person(){ID = 5, Name = "Raihan"},
+                new Person(){ID = 6, Name = "Piers"},
+                new Person(){ID = 7, Name = "Mustard"},
+            };
+
+            ///Method
+            Console.WriteLine();
+            var namedPerson = people1.Select(p => p.Name).Union(people2.Select(p => p.Name)).ToList();
+            foreach (var item in namedPerson)
+            {
+                Console.WriteLine(item);
+            }
+
+            ///Query
+            Console.WriteLine();
+            var idedPerson = (from i in people1 select i.Name)
+                .Union(people2.Select(y => y.Name)).ToList();
+            foreach (var item in idedPerson)
+            {
+                Console.WriteLine(item);
             }
         }
     }
