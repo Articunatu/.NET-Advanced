@@ -9,7 +9,7 @@ namespace _02___Linq
         public int TeacherID { get; set; }
         public int SubjectID { get; set; }
 
-        public virtual Teacher Teacher { get; set; }
-        public virtual Subject Subject { get; set; }
+        public Teacher Teacher { get; set; }
+        public Subject Subject { get; set; }
     }
 }
