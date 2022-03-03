@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Threads_Tutorial_1
 {
@@ -15,6 +16,64 @@ namespace Threads_Tutorial_1
 
             ///Background thread
             //BackgroundThread();
+            //MultiThreads();
+
+            ///Tasks
+            //Tasker1();
+            Tasker2();
+        }
+
+        private static void Tasker2()
+        {
+            Console.WriteLine($"Huvudtråd: {Thread.CurrentThread.ManagedThreadId} Startad");
+            Task task2 = Task.Run(() =>
+            {
+                OwnTask();
+            });
+            task2.Wait();
+            Console.WriteLine($"Huvudtråd: {Thread.CurrentThread.ManagedThreadId} Avslutad");
+        }
+
+        private static void Tasker1()
+        {
+            Console.WriteLine($"Huvudtråd : {Thread.CurrentThread.ManagedThreadId} Startad");
+            Task task1 = Task.Run(() =>
+            {
+                Counter();
+            }
+            );
+            task1.Wait();
+            Console.WriteLine($"Huvudtråd : {Thread.CurrentThread.ManagedThreadId} Avslutad");
+        }
+
+        static void OwnTask()
+        {
+            
+            for (int i = 16; i > 0; i--)
+            {
+                if (i % 2 == 0)
+                {
+                    Console.WriteLine("Jämnt tal");
+                    Thread.Sleep(2000);
+                }
+                Console.WriteLine(i);
+            }
+            
+        }
+
+        static void Counter()
+        {
+            Console.WriteLine($"Sub-tråd : { Thread.CurrentThread.ManagedThreadId} Avslutad." );
+            for (int Count = 1; Count <= 5; Count++)
+            {
+                Thread.Sleep(3000);
+                Console.WriteLine($"Antal i värde: {Count}");
+            }
+            Console.WriteLine($"Sub-tråd : {Thread.CurrentThread.ManagedThreadId} Avslutad");
+        }
+
+        private static void MultiThreads()
+        {
             Thread t1 = new Thread(Method1)
             {
                 Name = "Tråd 1"
