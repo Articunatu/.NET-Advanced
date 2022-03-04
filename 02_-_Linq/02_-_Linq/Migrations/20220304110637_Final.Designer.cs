@@ -9,8 +9,8 @@ using _02___Linq;
 namespace _02___Linq.Migrations
 {
     [DbContext(typeof(SchoolDBContext))]
-    [Migration("20220303093445_Initial")]
-    partial class Initial
+    [Migration("20220304110637_Final")]
+    partial class Final
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,10 +45,7 @@ namespace _02___Linq.Migrations
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -106,14 +103,8 @@ namespace _02___Linq.Migrations
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

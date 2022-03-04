@@ -2,7 +2,7 @@
 
 namespace _02___Linq.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,8 +25,7 @@ namespace _02___Linq.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     ClassID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -54,9 +53,7 @@ namespace _02___Linq.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Salary = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     ClassID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

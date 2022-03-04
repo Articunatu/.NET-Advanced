@@ -9,9 +9,7 @@ namespace _02___Linq
     {
         [Key]
         public int ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Salary { get; set; }
+        public string Name { get; set; }
         public int ClassID { get; set; }
     }
 }
