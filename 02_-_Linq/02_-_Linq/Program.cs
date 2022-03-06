@@ -6,11 +6,105 @@ namespace _02___Linq
 {
     class Program
     {
+        static SchoolDBContext context = new SchoolDBContext();
+
         static void Main()
         {
-            SchoolDBContext context = new SchoolDBContext();
 
-            #region Method multiple joins
+            //MathTeachers();
+
+            //StudentsTeachers();
+
+            //ContainsProg1();
+
+            //ChangeSubjName();
+
+            ChangeMentor();
+        }
+
+        private static void ChangeMentor()
+        {
+            foreach (var item in context.Students)
+            {
+                if (item.ClassID.Equals(1))
+                {
+                    item.ClassID = 2;
+               }
+            }
+
+            foreach (var item in context.Students)
+            {
+                Console.WriteLine(item.Name + " " + item.ClassID);
+            }
+
+            var mentorsQuery = (from s in context.Students
+                                join t in context.Teachers
+                                on s.ClassID equals t.ClassID
+                                //join c in context.Courses
+                                //on s.ClassID equals c.ID
+                                select new
+                                {
+                                    SID = s.ID,
+                                    SName = s.Name,
+                                    TName = t.Name
+                                }).ToArray();
+
+            foreach (var item in mentorsQuery)
+            {
+                Console.WriteLine(item.SID + " " + item.SName + " " + item.TName);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void ChangeSubjName()
+        {
+            ///Where query syntax with Contains
+            Console.WriteLine("\nAlla ämnen:");
+            PrintSubjects();
+            Console.Write("Välj ett ämne att ändra namn på: ");
+            string chosenSubj = Console.ReadLine();
+            Console.Write("Vad ska ämnet heta ");
+            string subjName = Console.ReadLine();
+
+            var changeSubj = from subj in context.Subjects
+                             where subj.SubName.Contains(chosenSubj)
+                             select subj;
+
+            foreach (var item in changeSubj)
+            {
+                item.SubName = subjName;
+            }
+
+            //context.SaveChanges();
+
+            Console.WriteLine("Alla nya ämnen:");
+            PrintSubjects();
+        }
+
+        private static void ContainsProg1()
+        {
+            ///Where method syntax with Contains
+            string selectSubj = "Programmering 1";
+            var allSubjNames = context.Subjects.Where(a => a.SubName.Contains(selectSubj));
+            bool hasProg = false;
+            foreach (var item in allSubjNames)
+            {
+                if (item.SubName.Contains(selectSubj))
+                {
+                    Console.WriteLine("Ja, {0} finns med bland ämnena", selectSubj);
+                    hasProg = true;
+                }
+            }
+            if (!hasProg)
+            {
+                Console.WriteLine("Nej, {0} finns ej bland ämnena...", selectSubj);
+            }
+        }
+
+
+        private static void MathTeachers()
+        {
             //var MathTeachers = context.TeachersSubjects.
             //                   Join(
             //                   context.Teachers,
@@ -52,11 +146,11 @@ namespace _02___Linq
             {
                 Console.WriteLine(item.TID + " " + item.TName + " " + item.SName);
             }
+        }
 
-            #endregion
-
+        private static void StudentsTeachers()
+        {
             ///Lärare i ämnen
-            # region Query multiple joins
             var stdsTeachs = (from std in context.Students
                               join stSu in context.StudentsSubjects
                               on std.ID equals stSu.StudentID
@@ -95,7 +189,7 @@ namespace _02___Linq
                                course => course.cou.ID,
                                std => std.ClassID,
                                (courses, stds) => new { courses, stds })
-                               
+
                                .Select(t => new
                                {
                                    SID = t.stds.ID,
@@ -107,65 +201,10 @@ namespace _02___Linq
             {
                 Console.WriteLine(item.SID + " " + item.SName + " " + item.TName);
             }
-            #endregion
 
-            #region Method Where + Contains
-            ///Where method syntax with Contains
-            string selectSubj = "Programmering 1";
-            var allSubjNames = context.Subjects.Where(a => a.SubName.Contains(selectSubj));
-            bool hasProg = false;
-            foreach (var item in allSubjNames)
-            {
-                if (item.SubName.Contains(selectSubj))
-                {
-                    Console.WriteLine("Ja, {0} finns med bland ämnena", selectSubj);
-                    hasProg = true;
-                }
-            }
-            if (!hasProg)
-            {
-                Console.WriteLine("Nej, {0} finns ej bland ämnena...", selectSubj);
-            }
-            #endregion
-
-            #region Query Where + Contains
-            ///Where query syntax with Contains
-            Console.WriteLine("\nAlla ämnen:");
-            PrintSubjects(context);
-            Console.Write("Välj ett ämne att ändra namn på: ");
-            string chosenSubj = Console.ReadLine();
-            Console.Write("Vad ska ämnet heta ");
-            string subjName = Console.ReadLine();
-
-            var changeSubj = from subj in context.Subjects
-                             where subj.SubName.Contains(chosenSubj)
-                             select subj;
-
-            foreach (var item in changeSubj)
-            {
-                item.SubName = subjName;
-            }
-
-            Console.WriteLine("Alla nya ämnen:");
-            PrintSubjects(context);
-            #endregion
-
-            foreach (var item in context.Students)
-            {
-                if (item.ClassID.Equals(1))
-                {
-                    item.ClassID = 2;
-                }
-            }
-
-            
-            foreach (var item in mentors2)
-            {
-                Console.WriteLine(item.SID + " " + item.SName + " " + item.TName);
-            }
         }
 
-        private static void PrintSubjects(SchoolDBContext context)
+        private static void PrintSubjects()
         {
             foreach (var item in context.Subjects)
             {
