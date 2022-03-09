@@ -9,37 +9,118 @@ namespace _03___Threads_Asynchronization
         static Car car2 = new Car { Name = "Toyota" };
 
         static readonly int distance = 10000; ///10 km
+
+        //static int timePassed = 1;
+
+        static Random random = new Random();
+
+        static int counter = 0;
+
         static void Main()
         {
             Thread thread1 = new Thread(FirstDrive);
             Thread thread2 = new Thread(SecondDrive);
+            //Thread thread3 = new Thread(Timer);
+            thread1.Start();
+            //thread2.Start();
+            //thread3.Start();
         }
 
         static void FirstDrive()
         {
-            for (double i = 0; i < distance; i++)
+            Console.WriteLine(car1.Name + " började köra!");
+            for (int timePassed = 0; car1.CurrentDistance < distance; timePassed++)
             {
-                if (i % car1.Velocity == 0)
+                Thread.Sleep(1000);
+                car1.CurrentDistance += car1.Velocity;
+                if (timePassed % 30 == 0 && timePassed != 0)
                 {
-                    Thread.Sleep(1000);
+                    int possibility = random.Next(1, 50);
+                    if (possibility > 19)
+                    {
+                        CheckProblem(car1, possibility);
+                    }
                 }
             }
+            ReachGoal(car1);
         }
 
         static void SecondDrive()
         {
-            for (double i = 0; i < distance; i++)
+            Console.WriteLine(car2.Name + " började köra!");
+            for (int timePassed = 0; car2.CurrentDistance < distance; timePassed++)
             {
-                if (i % car1.Velocity == 0)
+                Thread.Sleep(1000);
+                car2.CurrentDistance += car2.Velocity;
+                if (timePassed % 30 == 0 && timePassed != 0)
                 {
-                    Thread.Sleep(1000);
+                    int possibility = random.Next(1, 50);
+                    if (possibility > 19)
+                    {
+                        CheckProblem(car2, possibility);
+                    }
                 }
             }
+            ReachGoal(car2);
         }
 
-        static void CheckProblem()
-        {
+        ///Increments timer every 2 seconds
+        //static void Timer()
+        //{
+        //    for (int i = 0; i < 750; i++)
+        //    {
+        //        if (i % 2 == 0)
+        //        {
+        //            Thread.Sleep(2000);
+        //            timePassed += 2;
+        //        }
+        //    }
+        //}
 
+        static void CheckProblem(Car car, int pos)
+        {
+            string problem;
+            if (pos == 1)
+            {
+                ///Fuel
+                problem = " har fått slut på bensin, stannar för att tanka i 30 sekunder";
+                Thread.Sleep(30000);
+
+            }
+            else if (pos <= 3)
+            {
+                ///Punctation
+                problem = " har fått punktering, stannar för att byta däck i 20 sekunder";
+                Thread.Sleep(20000);
+            }
+            else if (pos >= 9)
+            {
+                ///Motor             
+                problem = " har fått problem med sin motor, hastigheten minskas med 1 km/h";
+                car.Velocity -= 1 / 3.6;
+            }
+            else
+            {
+                ///Bird
+                problem = " har fått besök av en fågel på vindrutan, " +
+                    "stannar i 10 sekunder för att tvätta rutan";
+                Thread.Sleep(10000);
+            }
+            Console.WriteLine(car.Name + problem);
+        }
+
+        static void ReachGoal(Car car)
+        {
+            Console.Write($"{car.Name} har gått i mål! ");
+            if (counter == 0)
+            {
+                Console.WriteLine("Den var först och vann loppet!");
+            }
+            else
+            {
+                Console.WriteLine("Men vinsten gick till bilen innan...");
+            }
+            counter++;
         }
     }
 }
