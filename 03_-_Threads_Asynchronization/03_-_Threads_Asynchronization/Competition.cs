@@ -38,7 +38,7 @@ namespace _03___Threads_Asynchronization
                 if (timePassed % 30 == 0 && timePassed != 0)
                 {
                     int possibility = random.Next(1, 50);
-                    if (possibility > 19)
+                    if (possibility < 41)
                     {
                         CheckProblem(car1, possibility);
                     }
@@ -57,10 +57,12 @@ namespace _03___Threads_Asynchronization
                 if (timePassed % 30 == 0 && timePassed != 0)
                 {
                     int possibility = random.Next(1, 50);
-                    if (possibility > 19)
+
+                    if (possibility < 41)
                     {
                         CheckProblem(car2, possibility);
                     }
+
                 }
             }
             ReachGoal(car2);
@@ -71,12 +73,11 @@ namespace _03___Threads_Asynchronization
         {
             for (int i = 0; i < 750; i++)
             {
-                if (i %  1 == 0)
-                {
-                    Thread.Sleep(1000);
-                    timePassed += 1;
-                }
-                if (i % 5 == 0)
+
+                Thread.Sleep(1000);
+                timePassed += 1;
+
+                if (timePassed % 5 == 0)
                 {
                     Console.WriteLine(timePassed + " sekunder");
                 }
@@ -89,34 +90,40 @@ namespace _03___Threads_Asynchronization
 
         static void CheckProblem(Car car, int pos)
         {
+            int sec = 0;
             string problem;
-            if (pos == 1)
+            if (pos < 11)
             {
                 ///Fuel
                 problem = " har fått slut på bensin, stannar för att tanka i 30 sekunder";
-                Thread.Sleep(30000);
-
+                sec = 30000;
+                //car.MotorMalfuntion = true;
             }
-            else if (pos <= 3)
+            else if (pos < 21)
             {
                 ///Punctation
                 problem = " har fått punktering, stannar för att byta däck i 20 sekunder";
-                Thread.Sleep(20000);
+                sec = 20000;
             }
-            else if (pos >= 9)
+            else if (pos < 31)
             {
                 ///Motor             
                 problem = " har fått problem med sin motor, hastigheten minskas med 1 km/h";
                 car.Velocity -= 1 / 3.6;
+                sec = 0;
             }
             else
             {
                 ///Bird
                 problem = " har fått besök av en fågel på vindrutan, " +
                     "stannar i 10 sekunder för att tvätta rutan";
-                Thread.Sleep(10000);
+                sec = 10000;
             }
             Console.WriteLine(car.Name + problem);
+            if (sec != 0)
+            {
+                Thread.Sleep(sec);
+            }
         }
 
         static void ReachGoal(Car car)
