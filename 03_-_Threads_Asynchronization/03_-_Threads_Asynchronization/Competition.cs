@@ -26,6 +26,11 @@ namespace _03___Threads_Asynchronization
             thread1.Start();
             thread2.Start();
             thread3.Start();
+            while (!end)
+            {
+                Console.ReadKey();
+                Status();
+            }
         }
 
         static void FirstDrive()
@@ -38,7 +43,7 @@ namespace _03___Threads_Asynchronization
                 if (timePassed % 30 == 0 && timePassed != 0)
                 {
                     int possibility = random.Next(1, 50);
-                    if (possibility < 41)
+                    if (possibility < 20)
                     {
                         CheckProblem(car1, possibility);
                     }
@@ -58,7 +63,7 @@ namespace _03___Threads_Asynchronization
                 {
                     int possibility = random.Next(1, 50);
 
-                    if (possibility < 41)
+                    if (possibility < 20)
                     {
                         CheckProblem(car2, possibility);
                     }
@@ -88,28 +93,39 @@ namespace _03___Threads_Asynchronization
             }
         }
 
+        static void Status()
+        {
+            Console.WriteLine();
+            Console.WriteLine(car1.Name + "s sträcka: " + Math.Round(car1.CurrentDistance / 1000, 2) + "km"
+                + "\thastighet: " + car1.Velocity + "km/h");
+            Console.WriteLine(car2.Name + "s sträcka: " + Math.Round(car2.CurrentDistance / 1000, 2) + "km"
+                + "\thastighet: " + car2.Velocity + "km/h");
+            Console.WriteLine();
+        }
+
         static void CheckProblem(Car car, int pos)
         {
             int sec = 0;
             string problem;
-            if (pos < 11)
+            if (pos == 1)
             {
                 ///Fuel
                 problem = " har fått slut på bensin, stannar för att tanka i 30 sekunder";
                 sec = 30000;
                 //car.MotorMalfuntion = true;
             }
-            else if (pos < 21)
+            else if (pos < 4)
             {
                 ///Punctation
                 problem = " har fått punktering, stannar för att byta däck i 20 sekunder";
                 sec = 20000;
             }
-            else if (pos < 31)
+            else if (pos < 14)
             {
-                ///Motor             
-                problem = " har fått problem med sin motor, hastigheten minskas med 1 km/h";
+                ///Motor     
                 car.Velocity -= 1 / 3.6;
+                problem = " har fått problem med sin motor, hastigheten minskas med 1 km/h" +
+                    "\nNuvarande hastighet: " + car.Velocity.ToString();
                 sec = 0;
             }
             else
