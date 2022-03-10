@@ -10,26 +10,28 @@ namespace _03___Threads_Asynchronization
 
         static readonly int distance = 10000; ///10 km
 
-        //static int timePassed = 1;
+        static int timePassed = 1;
 
         static Random random = new Random();
 
         static int counter = 0;
 
+        static bool end;
+
         static void Main()
         {
             Thread thread1 = new Thread(FirstDrive);
             Thread thread2 = new Thread(SecondDrive);
-            //Thread thread3 = new Thread(Timer);
+            Thread thread3 = new Thread(Timer);
             thread1.Start();
-            //thread2.Start();
-            //thread3.Start();
+            thread2.Start();
+            thread3.Start();
         }
 
         static void FirstDrive()
         {
             Console.WriteLine(car1.Name + " började köra!");
-            for (int timePassed = 0; car1.CurrentDistance < distance; timePassed++)
+            for (int i = 0; car1.CurrentDistance < distance; i++)
             {
                 Thread.Sleep(1000);
                 car1.CurrentDistance += car1.Velocity;
@@ -65,17 +67,25 @@ namespace _03___Threads_Asynchronization
         }
 
         ///Increments timer every 2 seconds
-        //static void Timer()
-        //{
-        //    for (int i = 0; i < 750; i++)
-        //    {
-        //        if (i % 2 == 0)
-        //        {
-        //            Thread.Sleep(2000);
-        //            timePassed += 2;
-        //        }
-        //    }
-        //}
+        static void Timer()
+        {
+            for (int i = 0; i < 750; i++)
+            {
+                if (i %  1 == 0)
+                {
+                    Thread.Sleep(1000);
+                    timePassed += 1;
+                }
+                if (i % 5 == 0)
+                {
+                    Console.WriteLine(timePassed + " sekunder");
+                }
+                if (end == true)
+                {
+                    break;
+                }
+            }
+        }
 
         static void CheckProblem(Car car, int pos)
         {
@@ -119,6 +129,7 @@ namespace _03___Threads_Asynchronization
             else
             {
                 Console.WriteLine("Men vinsten gick till bilen innan...");
+                end = true;
             }
             counter++;
         }
