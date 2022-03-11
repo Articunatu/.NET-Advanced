@@ -97,9 +97,10 @@ namespace _03___Threads_Asynchronization
         {
             Console.WriteLine();
             Console.WriteLine(car1.Name + "s sträcka: " + Math.Round(car1.CurrentDistance / 1000, 2) + "km"
-                + "\thastighet: " + car1.Velocity + "km/h");
+                + "\thastighet: " + Math.Round(car1.Velocity, 2) + "km/h");
             Console.WriteLine(car2.Name + "s sträcka: " + Math.Round(car2.CurrentDistance / 1000, 2) + "km"
-                + "\thastighet: " + car2.Velocity + "km/h");
+                + "\thastighet: " + Math.Round(car2.Velocity, 2) + "km/h");
+            Console.WriteLine("Passerad tid: " + timePassed + "sekunder");
             Console.WriteLine();
         }
 
