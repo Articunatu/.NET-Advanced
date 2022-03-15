@@ -11,9 +11,9 @@ namespace Async_Tutorial
     {
         static void Main()
         {
-            Task task = new Task(CallMethod);
-            task.Start();
-            task.Wait();
+            //Task task = new Task(CallMethod);
+            //task.Start();
+            //task.Wait();
 
             string FilePath = @"C:\Users\chris\OneDrive\Skrivbord\toread.txt";
             string[] lines = File.ReadAllLines(FilePath);
