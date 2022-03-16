@@ -1,8 +1,10 @@
+using APIUser_Tutorial.Models;
 using APIUser_Tutorial.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,11 @@ namespace APIUser_Tutorial
         {
             services.AddControllers();
             services.AddSingleton<IUserRepository, UserRepo>();
+            
+            ///Connection DB Provider
+            services.AddDbContextPool<UserDbContext>(options => options.
+            UseSqlServer(Configuration.GetConnectionString("UserContextConnection")));
+            services.AddScoped<IUserRepository, SqlUserData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

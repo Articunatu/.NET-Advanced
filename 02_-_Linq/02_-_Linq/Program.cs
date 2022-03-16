@@ -10,16 +10,25 @@ namespace _02___Linq
 
         static void Main()
         {
+            Console.WriteLine("MATEMATIK LÄRARE:\n");
+            MathTeachers();
+            Console.WriteLine("\n*****************\n");
 
-            //MathTeachers();
+            Console.WriteLine("ELEVERS LÄRARE\n");
+            StudentsTeachers();
+            Console.WriteLine("\n*****************\n");
 
-            //StudentsTeachers();
+            Console.WriteLine("FINNS PROGRAMMERING 1 SOM KURS");
+            ContainsProg1();
+            Console.WriteLine("\n*****************\n");
 
-            //ContainsProg1();
+            Console.WriteLine("BYTA NAMN PÅ ETT ÄMNE");
+            ChangeSubjName();
+            Console.WriteLine("\n*****************\n");
 
-            //ChangeSubjName();
-
+            Console.WriteLine("BYT MENTOR FRÅN ANAS TILL REIDAR");
             ChangeMentor();
+            Console.WriteLine("\n*****************\n");
         }
 
         private static void ChangeMentor()
@@ -62,9 +71,9 @@ namespace _02___Linq
             ///Where query syntax with Contains
             Console.WriteLine("\nAlla ämnen:");
             PrintSubjects();
-            Console.Write("Välj ett ämne att ändra namn på: ");
+            Console.Write("\nVälj ett ämne att ändra namn på: ");
             string chosenSubj = Console.ReadLine();
-            Console.Write("Vad ska ämnet heta ");
+            Console.Write("\nVad ska ämnet heta ");
             string subjName = Console.ReadLine();
 
             var changeSubj = from subj in context.Subjects
@@ -78,7 +87,7 @@ namespace _02___Linq
 
             //context.SaveChanges();
 
-            Console.WriteLine("Alla nya ämnen:");
+            Console.WriteLine("\nAlla nya ämnen:");
             PrintSubjects();
         }
 
@@ -101,7 +110,6 @@ namespace _02___Linq
                 Console.WriteLine("Nej, {0} finns ej bland ämnena...", selectSubj);
             }
         }
-
 
         private static void MathTeachers()
         {
@@ -133,7 +141,7 @@ namespace _02___Linq
                                 on tSub.TeacherID equals tea.ID
                                 join subj in context.Subjects
                                 on tSub.SubjectID equals subj.ID
-                                where subj.ID.Equals(3)
+                                where subj.ID.Equals(4)
                                 select new
                                 {
                                     TID = tea.ID,
@@ -150,6 +158,7 @@ namespace _02___Linq
 
         private static void StudentsTeachers()
         {
+            Console.WriteLine("ÄMNESLÄRARE:");
             ///Lärare i ämnen
             var stdsTeachs = (from std in context.Students
                               join stSu in context.StudentsSubjects
@@ -174,6 +183,7 @@ namespace _02___Linq
                                   item.SID, item.SName, item.SSubj, item.STeach);
             }
 
+            Console.WriteLine("\nMENTORER:");
             ///Mentorer
             var mentors = context.Courses.
                                Join(

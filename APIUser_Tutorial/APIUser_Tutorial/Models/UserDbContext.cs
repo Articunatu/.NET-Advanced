@@ -13,5 +13,15 @@ namespace APIUser_Tutorial.Models
 
         }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            ///Seed Data
+            modelBuilder.Entity<User>().HasData(new User { ID= 109, Name = "Scar"});
+            modelBuilder.Entity<User>().HasData(new User { ID = 110, Name = "Toph" });
+            modelBuilder.Entity<User>().HasData(new User { ID = 111, Name = "Blur" });
+        }
     }
 }
