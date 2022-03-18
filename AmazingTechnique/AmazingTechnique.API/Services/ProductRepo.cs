@@ -15,14 +15,23 @@ namespace AmazingTechnique.API.Services
         {
             _appContext = appContext;
         }
-        public Task<Product> Create(Product newEntity)
+        public async Task<Product> Create(Product newEntity)
         {
-            throw new NotImplementedException();
+            var result = await _appContext.Products.AddAsync(newEntity);
+            await _appContext.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<Product> Delete(int id)
+        public async Task<Product> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _appContext.Products.FirstOrDefaultAsync(p => p.ProductID == id);
+            if (result != null)
+            {
+                _appContext.Products.Remove(result);
+                await _appContext.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Product>> ReadAll()
@@ -30,14 +39,25 @@ namespace AmazingTechnique.API.Services
             return await _appContext.Products.ToListAsync();
         }
 
-        public Task<Product> ReadSingle(int id)
+        public async Task<Product> ReadSingle(int id)
         {
-            throw new NotImplementedException();
+            return await _appContext.Products.FirstOrDefaultAsync(p => p.ProductID == id);
         }
 
-        public Task<Product> Update(Product Entity)
+        public async Task<Product> Update(Product Entity)
         {
-            throw new NotImplementedException();
+            var result = await _appContext.Products.FirstOrDefaultAsync(p => p.ProductID == Entity.ProductID);
+            if (result != null)
+            {
+                result.ProductName = Entity.ProductName;
+                result.Price = Entity.Price;
+                result.Category = Entity.Category;
+
+                await _appContext.SaveChangesAsync();
+
+                return result;
+            }
+            return null;
         }
     }
 }
