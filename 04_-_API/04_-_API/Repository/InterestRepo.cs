@@ -1,4 +1,5 @@
 ﻿using _04___API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,29 +9,54 @@ namespace _04___API.Repository
 {
     public class InterestRepo : IRepository<Interest>
     {
-        public Task<Interest> Create(Interest newEntity)
+
+        public InterestRepo(WebDbContext webDbContext)
         {
-            throw new NotImplementedException();
+            Repo._webDbContext = webDbContext;
         }
 
-        public Task<IEnumerable<Interest>> ReadAll()
+        public async Task<Interest> Create(Interest newEntity)
         {
-            throw new NotImplementedException();
+            var result = await Repo._webDbContext.Interests.AddAsync(newEntity);
+            await PersonRepo._webDbContext.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<Interest> ReadSingle(int id)
+        public async Task<IEnumerable<Interest>> ReadAll()
         {
-            throw new NotImplementedException();
+            return await Repo._webDbContext.Interests.ToListAsync();
         }
 
-        public Task<Interest> Update(Interest Entity)
+        public async Task<Interest> ReadSingle(int id)
         {
-            throw new NotImplementedException();
+            return await Repo._webDbContext.Interests.FirstOrDefaultAsync(p => p.InterestID == id);
         }
 
-        public Task<Interest> Delete(int id)
+        public async Task<Interest> Update(Interest Entity)
         {
-            throw new NotImplementedException();
+            var result = await Repo._webDbContext.Interests.FirstOrDefaultAsync(p => p.InterestID == Entity.InterestID);
+            if (result != null)
+            {
+                result.Title = Entity.Title;
+                result.Description = Entity.Description;
+
+                await Repo._webDbContext.SaveChangesAsync();
+
+                return result;
+            }
+            return null;
+        }
+
+        public async Task<Interest> Delete(int id)
+        {
+            var result = await Repo._webDbContext.Interests.FirstOrDefaultAsync(p => p.InterestID == id);
+            if (result != null)
+            {
+                Repo._webDbContext.Interests.Remove(result);
+                await Repo._webDbContext.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
     }
 }

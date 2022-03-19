@@ -1,4 +1,5 @@
 ﻿using _04___API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,29 +9,54 @@ namespace _04___API.Repository
 {
     public class WeblinkRepo : IRepository<WebLink>
     {
-        public Task<WebLink> Create(WebLink newEntity)
+        public WeblinkRepo(WebDbContext webDbContext)
         {
-            throw new NotImplementedException();
+            Repo._webDbContext = webDbContext;
         }
 
-        public Task<IEnumerable<WebLink>> ReadAll()
+        public async Task<WebLink> Create(WebLink newEntity)
         {
-            throw new NotImplementedException();
+            var result = await Repo._webDbContext.WebLinks.AddAsync(newEntity);
+            await Repo._webDbContext.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<WebLink> ReadSingle(int id)
+        public async Task<IEnumerable<WebLink>> ReadAll()
         {
-            throw new NotImplementedException();
+            return await Repo._webDbContext.WebLinks.ToListAsync();
         }
 
-        public Task<WebLink> Update(WebLink Entity)
+        public async Task<WebLink> ReadSingle(int id)
         {
-            throw new NotImplementedException();
+            return await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
         }
 
-        public Task<WebLink> Delete(int id)
+        public async Task<WebLink> Update(WebLink Entity)
         {
-            throw new NotImplementedException();
+            var result = await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == Entity.WebID);
+            if (result != null)
+            {
+                result.LinkURL = Entity.LinkURL;
+                result.PersonID = Entity.PersonID;
+                result.InterestID = Entity.InterestID;
+
+                await Repo._webDbContext.SaveChangesAsync();
+
+                return result;
+            }
+            return null;
+        }
+
+        public async Task<WebLink> Delete(int id)
+        {
+            var result = await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
+            if (result != null)
+            {
+                Repo._webDbContext.WebLinks.Remove(result);
+                await Repo._webDbContext.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
     }
 }

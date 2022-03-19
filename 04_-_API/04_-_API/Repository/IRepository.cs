@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using _04___API.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace _04___API.Repository
@@ -10,5 +11,10 @@ namespace _04___API.Repository
         Task<T> ReadSingle(int id);
         Task<T> Update(T Entity);
         Task<T> Delete(int id);
+    }
+
+    public class Repo
+    {
+        static public WebDbContext _webDbContext;
     }
 }
