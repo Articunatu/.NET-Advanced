@@ -1,4 +1,5 @@
 using _04___API.Models;
+using _04___API.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,9 @@ namespace _04___API_WebConnect
 
             services.AddDbContext<WebDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
+
+            services.AddScoped<IRepository<Person>, PersonRepo>();
+            services.AddScoped<IRepository<Interest>, InterestRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

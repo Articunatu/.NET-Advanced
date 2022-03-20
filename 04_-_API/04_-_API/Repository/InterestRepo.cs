@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace _04___API.Repository
         public async Task<Interest> Create(Interest newEntity)
         {
             var result = await Repo._webDbContext.Interests.AddAsync(newEntity);
-            await PersonRepo._webDbContext.SaveChangesAsync();
+            await Repo._webDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
@@ -29,7 +30,20 @@ namespace _04___API.Repository
 
         public async Task<Interest> ReadSingle(int id)
         {
-            return await Repo._webDbContext.Interests.FirstOrDefaultAsync(p => p.InterestID == id);
+            var personsInterests = (from w in Repo._webDbContext.WebLinks
+                                    join p in Repo._webDbContext.Persons
+                                    on w.PersonID equals p.PersonID
+                                    join i in Repo._webDbContext.Interests
+                                    on w.InterestID equals i.InterestID
+                                    where w.PersonID == id
+                                    select new
+                                    {
+                                        ID = w.InterestID,
+                                        i.Title,
+                                        i.Description
+                                    }
+                                    ).ToListAsync();
+            return (Interest)(IEnumerable<Interest>)await personsInterests;
         }
 
         public async Task<Interest> Update(Interest Entity)
