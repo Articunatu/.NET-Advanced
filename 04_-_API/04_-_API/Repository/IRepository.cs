@@ -7,8 +7,7 @@ namespace _04___API.Repository
     public interface IRepository<T>
     {
         Task<T> Create(T newEntity);
-        Task<IEnumerable<T>> ReadAll();
-        Task<T> ReadSingle(int id);
+        Task<T> ReadSingle(int id); Task<IEnumerable<T>> ReadAll();
         Task<T> Update(T Entity);
         Task<T> Delete(int id);
     }

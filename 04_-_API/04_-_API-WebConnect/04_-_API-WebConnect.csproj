@@ -5,5 +5,9 @@
     <RootNamespace>_04___API_WebConnect</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\04_-_API\04_-_API-DB.csproj" />
+  </ItemGroup>
+
 
 </Project>
