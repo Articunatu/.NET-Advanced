@@ -11,6 +11,6 @@ namespace AmazingTechnique.API.Model
         IEnumerable<Customer> ReadCustomers();
         Customer ReadSingleCustomer(int id);
 
-        IEnumerable<Customer> Search(string name, string? email);
+        IEnumerable<Customer> Search(string name);
     }
 }
