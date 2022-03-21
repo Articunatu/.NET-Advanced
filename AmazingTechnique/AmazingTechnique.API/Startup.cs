@@ -29,6 +29,7 @@ namespace AmazingTechnique.API
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
             ///services AddScoped
             services.AddScoped<IAmazingTechnique<Product>, ProductRepo>();
+            services.AddScoped<ICustomerRepository, CustomerRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
