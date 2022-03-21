@@ -97,9 +97,9 @@ namespace _03___Threads_Asynchronization
         {
             Console.WriteLine();
             Console.WriteLine(car1.Name + "s sträcka: " + Math.Round(car1.CurrentDistance / 1000, 2) + "km"
-                + "\thastighet: " + Math.Round(car1.Velocity, 2) + "km/h");
+                + "  hastighet: " + Math.Round(car1.Velocity, 2) + "km/h");
             Console.WriteLine(car2.Name + "s sträcka: " + Math.Round(car2.CurrentDistance / 1000, 2) + "km"
-                + "\thastighet: " + Math.Round(car2.Velocity, 2) + "km/h");
+                + "  hastighet: " + Math.Round(car2.Velocity, 2) + "km/h");
             Console.WriteLine("Passerad tid: " + timePassed + "sekunder");
             Console.WriteLine();
         }
@@ -140,6 +140,7 @@ namespace _03___Threads_Asynchronization
             if (sec != 0)
             {
                 Thread.Sleep(sec);
+                Console.WriteLine(car.Name +" börjar köra igen.\n");
             }
         }
 
