@@ -23,27 +23,19 @@ namespace _04___API.Repository
             return result.Entity;
         }
 
-        public async Task<IEnumerable<Interest>> ReadAll()
+        public async Task<IEnumerable<Interest>> ReadAll(int? id)
         {
-            return await Repo._webDbContext.Interests.ToListAsync();
+            var result = (from i in Repo._webDbContext.Interests
+                          join w in Repo._webDbContext.WebLinks
+                          on i.InterestID equals w.InterestID
+                          where w.PersonID == id
+                          select i);
+            return await result.ToListAsync();
         }
 
         public async Task<Interest> ReadSingle(int id)
         {
-            var personsInterests = (from w in Repo._webDbContext.WebLinks
-                                    join p in Repo._webDbContext.Persons
-                                    on w.PersonID equals p.PersonID
-                                    join i in Repo._webDbContext.Interests
-                                    on w.InterestID equals i.InterestID
-                                    where w.PersonID == id
-                                    select new
-                                    {
-                                        ID = w.InterestID,
-                                        i.Title,
-                                        i.Description
-                                    }
-                                    ).ToListAsync();
-            return (Interest)(IEnumerable<Interest>)await personsInterests;
+            return await Repo._webDbContext.Interests.FirstOrDefaultAsync(p => p.InterestID == id);
         }
 
         public async Task<Interest> Update(Interest Entity)

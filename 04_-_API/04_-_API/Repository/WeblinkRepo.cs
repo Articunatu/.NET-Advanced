@@ -1,6 +1,7 @@
 ﻿using _04___API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,12 @@ namespace _04___API.Repository
             return result.Entity;
         }
 
-        public async Task<IEnumerable<WebLink>> ReadAll()
+        public async Task<IEnumerable<WebLink>> ReadAll(int? id)
         {
-            return await Repo._webDbContext.WebLinks.ToListAsync();
+            var result = (from w in Repo._webDbContext.WebLinks
+                          where w.PersonID == id
+                          select w);
+            return await result.ToListAsync();
         }
 
         public async Task<WebLink> ReadSingle(int id)

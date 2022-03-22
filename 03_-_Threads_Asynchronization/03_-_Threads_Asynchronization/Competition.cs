@@ -8,7 +8,7 @@ namespace _03___Threads_Asynchronization
         static Car car1 = new Car { Name = "Pegeuot" };
         static Car car2 = new Car { Name = "Toyota" };
 
-        static readonly int distance = 10000; ///10 km
+        static readonly int distance = 5000; ///10 km
 
         static int timePassed = 1;
 

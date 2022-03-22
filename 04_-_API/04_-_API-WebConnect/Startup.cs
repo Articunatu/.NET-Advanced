@@ -35,6 +35,7 @@ namespace _04___API_WebConnect
 
             services.AddScoped<IRepository<Person>, PersonRepo>();
             services.AddScoped<IRepository<Interest>, InterestRepo>();
+            services.AddScoped<IRepository<WebLink>, WeblinkRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -21,7 +21,7 @@ namespace _04___API.Repository
             return result.Entity;
         }
 
-        public async Task<IEnumerable<Person>> ReadAll()
+        public async Task<IEnumerable<Person>> ReadAll(int? id)
         {
             return await Repo._webDbContext.Persons.ToListAsync();
         }

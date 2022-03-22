@@ -11,13 +11,13 @@ namespace _04___API_WebConnect.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InterestController : ControllerBase
+    public class WebLinkController : ControllerBase
     {
-        private IRepository<Interest> _repo2;
+        private IRepository<WebLink> _repo3;
 
-        public InterestController(IRepository<Interest> repo2)
+        public WebLinkController(IRepository<WebLink> repo3)
         {
-            _repo2 = repo2;
+            _repo3 = repo3;
         }
 
         [HttpGet("{id}")]
@@ -25,12 +25,12 @@ namespace _04___API_WebConnect.Controllers
         {
             try
             {
-                return Ok(await _repo2.ReadAll(id));
+                return Ok(await _repo3.ReadAll(id));
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve this person's interests from database.....");
+                    "Error to retrieve this person's weblinks from database.....");
             }
         }
     }
