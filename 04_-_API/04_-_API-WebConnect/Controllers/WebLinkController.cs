@@ -21,7 +21,7 @@ namespace _04___API_WebConnect.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> ReadPersonsInterests(int id)
+        public async Task<ActionResult> ReadPersonsWeblinks(int id)
         {
             try
             {

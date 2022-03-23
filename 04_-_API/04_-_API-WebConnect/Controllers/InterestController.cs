@@ -23,15 +23,17 @@ namespace _04___API_WebConnect.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> ReadPersonsInterests(int id)
         {
-            try
-            {
+            //try
+            //{
                 return Ok(await _repo2.ReadAll(id));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve this person's interests from database.....");
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        "Error to retrieve this person's interests from database.....");
+            //}
         }
     }
 }
+///- [ ]  Koppla en person till ett nytt intresse
+///- [ ]  Lägga in nya länkar för en specifik person och ett specifikt intresse

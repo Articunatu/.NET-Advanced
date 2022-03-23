@@ -10,9 +10,11 @@ namespace _04___API.Repository
 {
     public class WeblinkRepo : IRepository<WebLink>
     {
+        WebDbContext _webDbContext;
+
         public WeblinkRepo(WebDbContext webDbContext)
         {
-            Repo._webDbContext = webDbContext;
+            _webDbContext = webDbContext;
         }
 
         public async Task<WebLink> Create(WebLink newEntity)
@@ -24,9 +26,9 @@ namespace _04___API.Repository
 
         public async Task<IEnumerable<WebLink>> ReadAll(int? id)
         {
-            var result = (from w in Repo._webDbContext.WebLinks
-                          where w.PersonID == id
-                          select w);
+            var result = from w in _webDbContext.WebLinks
+                         where w.PersonID == id
+                         select w;
             return await result.ToListAsync();
         }
 
