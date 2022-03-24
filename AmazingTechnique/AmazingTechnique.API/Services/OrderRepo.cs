@@ -17,9 +17,11 @@ namespace AmazingTechnique.API.Services
             _appDbContext = appDbContext;
         }
 
-        public Task<Order> Create(Order newEntity)
+        public async Task<Order> Create(Order newEntity)
         {
-            throw new NotImplementedException();
+            var added = await _appDbContext.Orders.AddAsync(newEntity);
+            await _appDbContext.SaveChangesAsync();
+            return added.Entity;
         }
 
         public async Task<IEnumerable<Order>> ReadAll()
@@ -33,14 +35,32 @@ namespace AmazingTechnique.API.Services
             return await _appDbContext.Orders.FirstOrDefaultAsync(p => p.OrderID == id);
         }
 
-        public Task<Order> Update(Order Entity)
+        public async Task<Order> Update(Order Entity)
         {
-            throw new NotImplementedException();
+            var result = await _appDbContext.Orders.FirstOrDefaultAsync(o => o.OrderID == Entity.OrderID);
+            if (result != null)
+            {
+                result.OrderPlaced = Entity.OrderPlaced;
+                result.CustomerID = Entity.CustomerID;
+                result.Customer = Entity.Customer;
+
+                await _appDbContext.SaveChangesAsync();
+
+                return result;
+            }
+            return null;
         }
 
-        public Task<Order> Delete(int id)
+        public async Task<Order> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _appDbContext.Orders.FirstOrDefaultAsync(o => o.OrderID == id);
+            if (result == null)
+            {
+                _appDbContext.Orders.Remove(result);
+                await _appDbContext.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
     }
 }
