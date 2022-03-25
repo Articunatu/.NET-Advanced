@@ -33,17 +33,15 @@ namespace Assignment_EasyAPi.Repository
             return await _context.Persons.ToListAsync();
         }
 
-        public async Task<Person> Update(Person person, int id)
+        public async Task<Person> Update(Person person)
         {
-            var result = await _context.Persons.FirstOrDefaultAsync(p => p.ID == id);
+            var result = await _context.Persons.FirstOrDefaultAsync(p => p.ID == person.ID);
             if (result != null)
             {
                 result.Class = person.Class;
                 result.Type1 = person.Type1;
                 result.Type2 = person.Type2;
-
                 await _context.SaveChangesAsync();
-
                 return result;
             }
             return null;

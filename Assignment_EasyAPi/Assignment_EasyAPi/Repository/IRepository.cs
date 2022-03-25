@@ -12,7 +12,7 @@ namespace Assignment_EasyAPi.Repository
         Task<T> Read(int id);
         Task<IEnumerable<T>> ReadAll();
         
-        Task<T> Update(T Entity, int id);
+        Task<T> Update(T Entity);
         Task<T> Delete(T Entity);
     }
 }

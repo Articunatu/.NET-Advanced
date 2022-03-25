@@ -52,21 +52,21 @@ namespace Assignment_EasyAPi.Controllers
             return result;
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<Person>> Update(int id, Person person)
         {
             try
             {
                 if (id != person.ID)
                 {
-                    return BadRequest("Product ID Doesn't Exist.....");
+                    return BadRequest("Person with that ID Doesn't Exist.....");
                 }
                 var updated = await _repo.Read(id);
                 if (updated == null)
                 {
-                    return NotFound($"Product with ID {id} Not Found........");
+                    return NotFound($"Person with ID {id} Not Found........");
                 }
-                return await _repo.Update(updated, id);
+                return await _repo.Update(updated);
             }
             catch (Exception)
             {
