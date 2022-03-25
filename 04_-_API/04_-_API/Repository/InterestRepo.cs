@@ -23,14 +23,17 @@ namespace _04___API.Repository
             return result.Entity;
         }
 
-        public async Task<IEnumerable<Interest>> ReadAll(int? id)
+        public async Task<IEnumerable<Interest>> ReadAll(int id)
         {
-            var result = from i in _webDbContext.Interests
-                         join w in _webDbContext.WebLinks
-                         on i.InterestID equals w.InterestID
-                         where w.PersonID.Equals(id)
-                         select i;
-            return await result.Distinct().ToListAsync();
+            var result = (from w in _webDbContext.WebLinks
+                         join i in _webDbContext.Interests
+                         on w.InterestID equals i.InterestID
+                         join p in _webDbContext.Persons
+                         on w.PersonID equals p.PersonID
+                         where w.PersonID == id
+                         select i)
+                         .Distinct().ToListAsync();
+            return await result;
         }
 
         public async Task<Interest> ReadSingle(int id)

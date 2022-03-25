@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.23" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\04_-_API\04_-_API-DB.csproj" />
   </ItemGroup>
 

@@ -28,7 +28,7 @@ namespace _04___API_WebConnect.Controllers
         {
             try
             {
-                return Ok(await _repo.ReadAll(null));
+                return Ok(await _repo.ReadAll(0));
             }
             catch (Exception)
             {

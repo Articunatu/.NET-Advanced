@@ -30,6 +30,9 @@ namespace _04___API_WebConnect
         {
             services.AddControllers();
 
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddDbContext<WebDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 

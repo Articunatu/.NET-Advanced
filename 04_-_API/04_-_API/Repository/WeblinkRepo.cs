@@ -24,7 +24,7 @@ namespace _04___API.Repository
             return result.Entity;
         }
 
-        public async Task<IEnumerable<WebLink>> ReadAll(int? id)
+        public async Task<IEnumerable<WebLink>> ReadAll(int id)
         {
             var result = from w in _webDbContext.WebLinks
                          where w.PersonID == id
