@@ -22,8 +22,6 @@ namespace _04___API.Repository
             var result = await _webDbContext.WebLinks.AddAsync(newEntity);
             await _webDbContext.SaveChangesAsync();
             return result.Entity;
-
-
         }
 
         public async Task<WebLink> ReadSingle(int id)
@@ -64,17 +62,19 @@ namespace _04___API.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<object> PersonsWeblink(int id)
+        public async Task<object> SearchByPerson(int id)
         {
             var result = (from w in _webDbContext.WebLinks
+                          join p in _webDbContext.Persons
+                          on w.PersonID equals p.PersonID
                           where w.PersonID == id
-                          select w).ToListAsync();
-            return await result;
-        }
-
-        public Task<object> SearchByPerson(int id)
-        {
-            throw new NotImplementedException();
+                          select new
+                          {
+                              Person = p.Name,
+                              Website = w.WebID,
+                              URL = w.LinkURL
+                          }).Distinct();
+            return await result.ToListAsync();
         }
 
         public async Task<WebLink> ConnectToPerson(WebLink Entity, int pId, int iId)

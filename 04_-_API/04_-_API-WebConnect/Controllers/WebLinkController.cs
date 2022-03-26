@@ -39,7 +39,7 @@ namespace _04___API_WebConnect.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("p{id}")]
         public async Task<ActionResult> ReadPersonsWeblinks(int id)
         {
             try
@@ -53,7 +53,7 @@ namespace _04___API_WebConnect.Controllers
             }
         }
 
-        [HttpPost("person{personID}interest{interestID}")]
+        [HttpPost("Person{pID}Intresse{iID}")]
         public async Task<ActionResult<WebLink>> ConnectPersonToWeblink(WebLink weblink, int pId, int iId)
         {
             try
@@ -68,7 +68,7 @@ namespace _04___API_WebConnect.Controllers
             catch (Exception)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error to add data to database");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error to add weblink to a person");
             }
         }
     }
