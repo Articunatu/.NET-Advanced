@@ -9,38 +9,40 @@ namespace _04___API.Repository
 {
     public class PersonRepo : IRepository<Person>
     {
+        private WebDbContext _webDbContext;
+
         public PersonRepo(WebDbContext webDbContext)
         {
-            Repo._webDbContext = webDbContext;
+            _webDbContext = webDbContext;
         }
 
         public async Task<Person> Create(Person newEntity)
         {
-            var result = await Repo._webDbContext.Persons.AddAsync(newEntity);
-            await Repo._webDbContext.SaveChangesAsync();
+            var result = await _webDbContext.Persons.AddAsync(newEntity);
+            await _webDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task<IEnumerable<Person>> ReadAll(int id)
+        public async Task<IEnumerable<Person>> ReadAll()
         {
-            return await Repo._webDbContext.Persons.ToListAsync();
+            return await _webDbContext.Persons.ToListAsync();
         }
 
         public async Task<Person> ReadSingle(int id)
         {
-            return await Repo._webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == id);
+            return await _webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == id);
         }
 
         public async Task<Person> Update(Person Entity)
         {
-            var result = await Repo._webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == Entity.PersonID);
+            var result = await _webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == Entity.PersonID);
             if (result != null)
             {
                 result.Name = Entity.Name;
                 result.Interests = Entity.Interests;
                 result.PhoneNumber = Entity.PhoneNumber;
 
-                await Repo._webDbContext.SaveChangesAsync();
+                await _webDbContext.SaveChangesAsync();
 
                 return result;
             }
@@ -49,14 +51,24 @@ namespace _04___API.Repository
 
         public async Task<Person> Delete(int id)
         {
-            var result = await Repo._webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == id);
+            var result = await _webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == id);
             if (result != null)
             {
-                Repo._webDbContext.Persons.Remove(result);
-                await Repo._webDbContext.SaveChangesAsync();
+                _webDbContext.Persons.Remove(result);
+                await _webDbContext.SaveChangesAsync();
                 return result;
             }
             return null;
-        }     
+        }
+
+        public Task<object> SearchByPerson(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Person> ConnectToPerson(Person Entity, int pId, int iId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

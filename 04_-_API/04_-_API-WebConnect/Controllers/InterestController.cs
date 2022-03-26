@@ -21,11 +21,11 @@ namespace _04___API_WebConnect.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> ReadPersonsInterests(int id)
+        public async Task<IActionResult> ReadPersonsInterests(int id)
         {
             //try
             //{
-                return Ok(await _repo2.ReadAll(id));
+                return Ok(await _repo2.SearchByPerson(id));
             //}
             //catch (Exception)
             //{
@@ -33,7 +33,23 @@ namespace _04___API_WebConnect.Controllers
             //        "Error to retrieve this person's interests from database.....");
             //}
         }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Interest>> ConnectInterestToPerson(Interest interest, int pId, int iId)
+        {
+            try
+            {
+                var result = await _repo2.ConnectToPerson(interest, pId, iId);
+                if (result != null)
+                {
+                    return Created("", result);
+                }
+                return NotFound($"Could not find person with id: {pId} in database!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error connecting to database");
+            }
+        }
     }
 }
-///- [ ]  Koppla en person till ett nytt intresse
-///- [ ]  Lägga in nya länkar för en specifik person och ett specifikt intresse

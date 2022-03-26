@@ -18,6 +18,7 @@ namespace _04___API_WebConnect.Controllers
     public class PersonController : ControllerBase
     {
         private IRepository<Person> _repo;
+
         public PersonController(IRepository<Person> repo)
         {
             _repo = repo;
@@ -28,7 +29,7 @@ namespace _04___API_WebConnect.Controllers
         {
             try
             {
-                return Ok(await _repo.ReadAll(0));
+                return Ok(await _repo.ReadAll());
             }
             catch (Exception)
             {

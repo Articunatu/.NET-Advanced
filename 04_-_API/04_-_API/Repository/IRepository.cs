@@ -7,13 +7,10 @@ namespace _04___API.Repository
     public interface IRepository<T>
     {
         Task<T> Create(T newEntity);
-        Task<T> ReadSingle(int id); Task<IEnumerable<T>> ReadAll(int id);
+        Task<T> ReadSingle(int id); Task<IEnumerable<T>> ReadAll();
         Task<T> Update(T Entity);
         Task<T> Delete(int id);
-    }
-
-    public class Repo
-    {
-        static public WebDbContext _webDbContext;
+        Task<object> SearchByPerson(int id);
+        Task<T> ConnectToPerson(T Entity, int pId, int iId);
     }
 }

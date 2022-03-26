@@ -19,34 +19,28 @@ namespace _04___API.Repository
 
         public async Task<WebLink> Create(WebLink newEntity)
         {
-            var result = await Repo._webDbContext.WebLinks.AddAsync(newEntity);
-            await Repo._webDbContext.SaveChangesAsync();
+            var result = await _webDbContext.WebLinks.AddAsync(newEntity);
+            await _webDbContext.SaveChangesAsync();
             return result.Entity;
-        }
 
-        public async Task<IEnumerable<WebLink>> ReadAll(int id)
-        {
-            var result = from w in _webDbContext.WebLinks
-                         where w.PersonID == id
-                         select w;
-            return await result.ToListAsync();
+
         }
 
         public async Task<WebLink> ReadSingle(int id)
         {
-            return await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
+            return await _webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
         }
 
         public async Task<WebLink> Update(WebLink Entity)
         {
-            var result = await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == Entity.WebID);
+            var result = await _webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == Entity.WebID);
             if (result != null)
             {
                 result.LinkURL = Entity.LinkURL;
                 result.PersonID = Entity.PersonID;
                 result.InterestID = Entity.InterestID;
 
-                await Repo._webDbContext.SaveChangesAsync();
+                await _webDbContext.SaveChangesAsync();
 
                 return result;
             }
@@ -55,12 +49,50 @@ namespace _04___API.Repository
 
         public async Task<WebLink> Delete(int id)
         {
-            var result = await Repo._webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
+            var result = await _webDbContext.WebLinks.FirstOrDefaultAsync(p => p.WebID == id);
             if (result != null)
             {
-                Repo._webDbContext.WebLinks.Remove(result);
-                await Repo._webDbContext.SaveChangesAsync();
+                _webDbContext.WebLinks.Remove(result);
+                await _webDbContext.SaveChangesAsync();
                 return result;
+            }
+            return null;
+        }
+
+        public Task<IEnumerable<WebLink>> ReadAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<object> PersonsWeblink(int id)
+        {
+            var result = (from w in _webDbContext.WebLinks
+                          where w.PersonID == id
+                          select w).ToListAsync();
+            return await result;
+        }
+
+        public Task<object> SearchByPerson(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<WebLink> ConnectToPerson(WebLink Entity, int pId, int iId)
+        {
+            var person = await _webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == pId);
+            var interest = await _webDbContext.Interests.FirstOrDefaultAsync(i => i.InterestID == iId);
+            if (person != null && interest != null)
+            {
+                var weblink = await _webDbContext.WebLinks.AddAsync(Entity);
+
+                await _webDbContext.SaveChangesAsync();
+                await _webDbContext.WebLinks.AddAsync(new WebLink 
+                { 
+                    InterestID = iId, PersonID = pId, WebID = weblink.Entity.WebID 
+                });
+                await _webDbContext.SaveChangesAsync();
+
+                return weblink.Entity;
             }
             return null;
         }
