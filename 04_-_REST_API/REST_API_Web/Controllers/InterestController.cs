@@ -23,15 +23,15 @@ namespace REST_API_Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ReadPersonsInterests(int id)
         {
-            //try
-            //{
-            return Ok(await _repo2.SearchByPerson(id));
-            //}
-            //catch (Exception)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //        "Error to retrieve this person's interests from database.....");
-            //}
+            try
+            {
+                return Ok(await _repo2.SearchByPerson(id));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error to retrieve this person's interests from database.....");
+            }
         }
 
         [HttpPost("{pId}")]

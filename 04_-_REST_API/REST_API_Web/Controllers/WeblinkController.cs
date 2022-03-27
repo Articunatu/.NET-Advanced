@@ -53,23 +53,30 @@ namespace REST_API_Web.Controllers
             }
         }
 
-        [HttpPost("person{pId}/intresse{iId}")]
+        [HttpPost("p{pId}/i{iId}")]
         public async Task<ActionResult<Weblink>> ConnectPersonToWeblink(Weblink weblink, int pId, int iId)
         {
-            try
+            //try
+            //{
+            if (weblink == null)
             {
-                if (weblink == null)
-                {
-                    BadRequest();
-                }
-                var ConnectedWeblink = await _repo3.ConnectToPerson(weblink, pId, iId);
-                return CreatedAtAction(nameof(ReadWebsite), new { id = ConnectedWeblink.WebID }, ConnectedWeblink);
+                BadRequest();
             }
-            catch (Exception)
-            {
+            //var ConnectedWeblink = await _repo3.ConnectToPerson(weblink, pId, iId);
+            //return CreatedAtAction(nameof(ReadWebsite),
+            //    new Weblink
+            //    {
+            //        WebID = ConnectedWeblink.WebID
+            //    }, ConnectedWeblink);
+            var connectedWeblink = await _repo3.ConnectToPerson(weblink, pId, iId);
+            return Created("", connectedWeblink);
+            //}
+            //catch (Exception)
+            //{
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error to add weblink to a person");
-            }
+            //    return StatusCode(StatusCodes.Status500InternalServerError, "Error to add weblink to a person");
+            //}
+
         }
     }
 }

@@ -77,24 +77,22 @@ namespace REST_API_Web.Repository
             return await result.ToListAsync();
         }
 
-        public async Task<Weblink> ConnectToPerson(Weblink Entity, int pId, int iId)
+        public async Task<Weblink> ConnectToPerson(Weblink weblink, int pId, int iId)
         {
             var person = await _restContext.Persons.FirstOrDefaultAsync(p => p.PersonID == pId);
             var interest = await _restContext.Interests.FirstOrDefaultAsync(i => i.InterestID == iId);
             if (person != null && interest != null)
             {
-                var weblink = await _restContext.Weblinks.AddAsync(Entity);
-
-                await _restContext.SaveChangesAsync();
-                await _restContext.Weblinks.AddAsync(new Weblink
-                {
-                    InterestID = iId,
-                    PersonID = pId,
-                    WebID = weblink.Entity.WebID
-                });
+                var connectedWeblink = await _restContext.Weblinks.AddAsync(
+                    new Weblink
+                    {
+                        LinkURL = weblink.LinkURL,
+                        InterestID = iId,
+                        PersonID = pId
+                    });
                 await _restContext.SaveChangesAsync();
 
-                return weblink.Entity;
+                return connectedWeblink.Entity;
             }
             return null;
         }
