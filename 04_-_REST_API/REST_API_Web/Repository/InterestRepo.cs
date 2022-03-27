@@ -21,16 +21,6 @@ namespace REST_API_Web.Repository
             var result = await _restContext.Interests.AddAsync(newEntity);
             await _restContext.SaveChangesAsync();
             return result.Entity;
-
-            //if (await _context.Persons.AnyAsync(p => p.PersonId == personId))
-            //{
-            //    var result = await _context.Interests.AddAsync(interest);
-            //    await _context.SaveChangesAsync();
-            //    await _context.PersonWebsiteInterests.AddAsync(new PersonWebsiteInterest { InterestId = result.Entity.Id, PersonId = personId, WebsiteId = null });
-            //    await _context.SaveChangesAsync();
-            //    return result.Entity;
-            //}
-            //return null;
         }
 
         public Task<IEnumerable<Interest>> ReadAll()

@@ -48,7 +48,7 @@ namespace REST_API_Web.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error connecting to database");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error connecting interest to person");
             }
         }
     }

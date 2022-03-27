@@ -71,7 +71,7 @@ namespace REST_API_Web.Repository
                           select new
                           {
                               Person = p.Name,
-                              Website = w.WebID,
+                              Hemsida = w.WebID,
                               URL = w.LinkURL
                           }).Distinct();
             return await result.ToListAsync();
