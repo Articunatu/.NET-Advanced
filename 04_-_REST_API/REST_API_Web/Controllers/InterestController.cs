@@ -1,13 +1,13 @@
-﻿using _04___API.Models;
-using _04___API.Repository;
+﻿using _04___REST_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using REST_API_Web.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _04___API_WebConnect.Controllers
+namespace REST_API_Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,7 +25,7 @@ namespace _04___API_WebConnect.Controllers
         {
             //try
             //{
-                return Ok(await _repo2.SearchByPerson(id));
+            return Ok(await _repo2.SearchByPerson(id));
             //}
             //catch (Exception)
             //{
@@ -37,19 +37,19 @@ namespace _04___API_WebConnect.Controllers
         [HttpPost("{pId}")]
         public async Task<ActionResult<Interest>> ConnectInterestToPerson(Interest interest, int pId, int iId)
         {
-            //try
-            //{
-                var foundInterest = await _repo2.ConnectToPerson(interest, pId, iId);
-                if (foundInterest != null)
+            try
+            {
+                var result = await _repo2.ConnectToPerson(interest, pId, iId);
+                if (result != null)
                 {
-                    return Created("", foundInterest);
+                    return Created("", result);
                 }
                 return NotFound($"Could not find person with id: {pId} in database!");
-            //}
-            //catch (Exception)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError, "Error connecting to database");
-            //}
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error connecting to database");
+            }
         }
     }
 }

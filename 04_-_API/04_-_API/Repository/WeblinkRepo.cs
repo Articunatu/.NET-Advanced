@@ -81,15 +81,18 @@ namespace _04___API.Repository
         {
             var person = await _webDbContext.Persons.FirstOrDefaultAsync(p => p.PersonID == pId);
             var interest = await _webDbContext.Interests.FirstOrDefaultAsync(i => i.InterestID == iId);
-            if (person != null && interest != null)
+            if (person != null)
             {
                 var weblink = await _webDbContext.WebLinks.AddAsync(Entity);
 
                 await _webDbContext.SaveChangesAsync();
-                await _webDbContext.WebLinks.AddAsync(new WebLink 
-                { 
-                    InterestID = iId, PersonID = pId, WebID = weblink.Entity.WebID 
-                });
+                await _webDbContext.WebLinks.AddAsync(
+                    new WebLink
+                    {
+                        InterestID = iId,
+                        PersonID = pId,
+                        WebID = weblink.Entity.WebID
+                    });
                 await _webDbContext.SaveChangesAsync();
 
                 return weblink.Entity;

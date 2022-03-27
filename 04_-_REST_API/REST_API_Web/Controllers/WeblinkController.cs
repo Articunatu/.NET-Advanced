@@ -1,27 +1,27 @@
-﻿using _04___API.Models;
-using _04___API.Repository;
+﻿using _04___REST_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using REST_API_Web.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _04___API_WebConnect.Controllers
+namespace REST_API_Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class WebLinkController : ControllerBase
     {
-        private IRepository<WebLink> _repo3;
+        private IRepository<Weblink> _repo3;
 
-        public WebLinkController(IRepository<WebLink> repo3)
+        public WebLinkController(IRepository<Weblink> repo3)
         {
             _repo3 = repo3;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<WebLink>> ReadWebsite(int id)
+        public async Task<ActionResult<Weblink>> ReadWebsite(int id)
         {
             try
             {
@@ -53,23 +53,23 @@ namespace _04___API_WebConnect.Controllers
             }
         }
 
-        [HttpPost("p{pId}/i{iId}")]
-        public async Task<ActionResult<WebLink>> ConnectPersonToWeblink(WebLink weblink, int pId, int iId)
+        [HttpPost("person{pId}/intresse{iId}")]
+        public async Task<ActionResult<Weblink>> ConnectPersonToWeblink(Weblink weblink, int pId, int iId)
         {
-            //try
-            //{
+            try
+            {
                 if (weblink == null)
                 {
                     BadRequest();
                 }
                 var ConnectedWeblink = await _repo3.ConnectToPerson(weblink, pId, iId);
                 return CreatedAtAction(nameof(ReadWebsite), new { id = ConnectedWeblink.WebID }, ConnectedWeblink);
-            //}
-            //catch (Exception)
-            //{
+            }
+            catch (Exception)
+            {
 
-            //    return StatusCode(StatusCodes.Status500InternalServerError, "Error to add weblink to a person");
-            //}
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error to add weblink to a person");
+            }
         }
     }
 }

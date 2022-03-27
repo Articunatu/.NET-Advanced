@@ -27,15 +27,15 @@ namespace _04___API_WebConnect.Controllers
         [HttpGet]
         public async Task<IActionResult> ReadAllPersons()
         {
-            try
-            {
+            //try
+            //{
                 return Ok(await _repo.ReadAll());
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve persons from database.....");
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        "Error to retrieve persons from database.....");
+            //}
         }
     }
 }
