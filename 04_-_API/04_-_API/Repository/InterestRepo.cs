@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace _04___API.Repository
@@ -21,16 +20,6 @@ namespace _04___API.Repository
             var result = await _webDbContext.Interests.AddAsync(newEntity);
             await _webDbContext.SaveChangesAsync();
             return result.Entity;
-
-            //if (await _context.Persons.AnyAsync(p => p.PersonId == personId))
-            //{
-            //    var result = await _context.Interests.AddAsync(interest);
-            //    await _context.SaveChangesAsync();
-            //    await _context.PersonWebsiteInterests.AddAsync(new PersonWebsiteInterest { InterestId = result.Entity.Id, PersonId = personId, WebsiteId = null });
-            //    await _context.SaveChangesAsync();
-            //    return result.Entity;
-            //}
-            //return null;
         }
 
         public Task<IEnumerable<Interest>> ReadAll()
