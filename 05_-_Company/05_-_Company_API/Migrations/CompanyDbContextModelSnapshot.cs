@@ -42,7 +42,7 @@ namespace _05___Company_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("SecurityNumber")
                         .HasColumnType("nvarchar(max)");

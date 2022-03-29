@@ -33,5 +33,14 @@ namespace _05___Company_API.Services
             throw new NotImplementedException();
         }
 
+        public Task<TimeReport> ProjectsPersons(TimeReport Entity, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TimeReport> WeeklyHours(TimeReport Entity, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

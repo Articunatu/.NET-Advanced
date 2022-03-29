@@ -22,5 +22,9 @@
     <ProjectReference Include="..\05_-_Company\05_-_Company_DB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 
 </Project>

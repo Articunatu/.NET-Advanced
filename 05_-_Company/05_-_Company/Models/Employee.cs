@@ -13,7 +13,7 @@ namespace _05___Company_DB.Models
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string SecurityNumber { get; set; }
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Salary { get; set; }
     }
 }

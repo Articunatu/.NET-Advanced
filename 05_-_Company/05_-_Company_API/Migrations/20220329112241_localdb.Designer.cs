@@ -10,8 +10,8 @@ using _05___Company_API.Database;
 namespace _05___Company_API.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20220329093159_Init")]
-    partial class Init
+    [Migration("20220329112241_localdb")]
+    partial class localdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace _05___Company_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("SecurityNumber")
                         .HasColumnType("nvarchar(max)");

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace _05___Company_API.Migrations
 {
-    public partial class Init : Migration
+    public partial class localdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace _05___Company_API.Migrations
                     Address = table.Column<string>(nullable: true),
                     PostalCode = table.Column<string>(nullable: true),
                     SecurityNumber = table.Column<string>(nullable: true),
-                    Salary = table.Column<decimal>(nullable: false)
+                    Salary = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
