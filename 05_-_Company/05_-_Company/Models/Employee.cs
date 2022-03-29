@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _05___Company_DB.Models
 {
@@ -12,6 +13,7 @@ namespace _05___Company_DB.Models
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string SecurityNumber { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Salary { get; set; }
     }
 }
