@@ -10,7 +10,15 @@ namespace _05___Company_API.Services
         Task<T> Read(int id); Task<IEnumerable<T>> ReadAll();
         Task<T> Update(T Entity, int id);
         Task<T> Delete(T Entity);
-        Task<IEnumerable<T>> ProjectsEmployees(int id); 
-        Task<T> WeeklyHours(T Entity, int id);
+    }
+
+    public interface IEmployee
+    {
+        Task<Employee> Create(Employee newEmp);
+        Task<Employee> Read(int id); Task<IEnumerable<Employee>> ReadAll();
+        Task<Employee> Update(Employee uptEmp, int id);
+        Task<Employee> Delete(Employee delEmp);
+        Task<IEnumerable<Employee>> ProjectsEmployees(int id);
+        Task<Employee> WeeklyHours(int week, int id);
     }
 }

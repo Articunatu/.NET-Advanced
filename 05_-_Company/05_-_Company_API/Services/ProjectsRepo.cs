@@ -34,7 +34,7 @@ namespace _05___Company_API.Services
             throw new NotImplementedException();
         }
 
-        public Task<Project> ProjectsPersons(Project Entity, int id)
+        public Task<IEnumerable<Project>> ProjectsEmployees(int id)
         {
             throw new NotImplementedException();
         }

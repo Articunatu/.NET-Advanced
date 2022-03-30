@@ -1,4 +1,6 @@
 using _05___Company_API.Database;
+using _05___Company_API.Services;
+using _05___Company_DB.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,8 @@ namespace _05___Company_API
 
             services.AddDbContext<CompanyDbContext>(options=> 
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
+
+            //services.AddScoped(EmployeeRepo, ICompany<Employee);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

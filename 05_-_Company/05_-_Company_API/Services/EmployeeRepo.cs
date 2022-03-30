@@ -3,12 +3,13 @@ using _05___Company_DB.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace _05___Company_API.Services
 {
-    public class EmployeeRepo : ICompany<Employee>
+    public class EmployeeRepo : IEmployee
     {
         private CompanyDbContext _context;
 
@@ -57,19 +58,33 @@ namespace _05___Company_API.Services
         public async Task<IEnumerable<Employee>> ProjectsEmployees(int id)
         {
             var employees = (from e in _context.Employees
-                           join t in _context.TimeReports
-                           on e.EmployeeID equals t.EmployeeID
-                           join p in _context.Projects
-                           on t.ProjectID equals p.ProjectID
-                           where p.ProjectID == id
-                           select e
+                             join t in _context.TimeReports
+                             on e.EmployeeID equals t.EmployeeID
+                             join p in _context.Projects
+                             on t.ProjectID equals p.ProjectID
+                             where p.ProjectID == id
+                             select e
                            ).ToListAsync();
             return await employees;
         }
 
-        public Task<Employee> WeeklyHours(Employee Entity, int id)
+        public async Task<Employee> WeeklyHours(int week, int id)
         {
-            throw new NotImplementedException();
+            Calendar calendar = new CultureInfo("sv-SV").Calendar;
+
+            int[] hours = (from t in _context.TimeReports
+                           where t.EmployeeID == id
+                           where calendar.GetWeekOfYear
+                           (t.WeekDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday) == week
+                           select t.Hours).ToArray();
+
+            int totalHours = 0;
+            foreach (var item in hours)
+            {
+                totalHours += item;
+            }
+
+            return await totalHours;
         }
     }
 }

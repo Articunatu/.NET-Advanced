@@ -9,6 +9,8 @@ namespace _05___Company_DB.Models
         public int? TR_ID { get; set; }
         public int? EmployeeID { get; set; }
         public int? ProjectID { get; set; }
+        [Required]
+        [Range(1,8)]
         public int Hours { get; set; }
         public DateTime WeekDate { get; set; }
     }

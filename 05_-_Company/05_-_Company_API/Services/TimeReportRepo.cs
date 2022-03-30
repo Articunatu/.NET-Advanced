@@ -33,7 +33,7 @@ namespace _05___Company_API.Services
             throw new NotImplementedException();
         }
 
-        public Task<TimeReport> ProjectsPersons(TimeReport Entity, int id)
+        public Task<IEnumerable<TimeReport>> ProjectsEmployees(int id)
         {
             throw new NotImplementedException();
         }

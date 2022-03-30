@@ -11,5 +11,9 @@ namespace _05___Company_API.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
+        public EmployeeController()
+        {
+
+        }
     }
 }
