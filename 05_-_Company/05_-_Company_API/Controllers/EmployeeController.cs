@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _05___Company_API.Services;
+using _05___Company_DB.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,14 @@ namespace _05___Company_API.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
+        private ICompany<Employee> company;
         public EmployeeController()
+        {
+
+        }
+
+        [HttpGet("week{week}/emp{eid}")]
+        public void ReadHours(int week, int eid)
         {
 
         }

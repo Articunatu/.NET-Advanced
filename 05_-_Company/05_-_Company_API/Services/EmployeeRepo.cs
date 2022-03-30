@@ -68,15 +68,17 @@ namespace _05___Company_API.Services
             return await employees;
         }
 
-        public async Task<Employee> WeeklyHours(int week, int id)
+        public async Task<object> WeeklyHours(int week, int id)
         {
             Calendar calendar = new CultureInfo("sv-SV").Calendar;
 
             int[] hours = (from t in _context.TimeReports
-                           where t.EmployeeID == id
-                           where calendar.GetWeekOfYear
-                           (t.WeekDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday) == week
-                           select t.Hours).ToArray();
+                         join e in _context.Employees
+                         on t.EmployeeID equals e.EmployeeID
+                         where t.EmployeeID == id
+                         where calendar.GetWeekOfYear
+                         (t.WeekDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday) == week
+                         select t.Hours).ToArray();
 
             int totalHours = 0;
             foreach (var item in hours)
@@ -84,7 +86,17 @@ namespace _05___Company_API.Services
                 totalHours += item;
             }
 
-            return await totalHours;
+            var empHours = (from t in _context.TimeReports
+                            join e in _context.Employees
+                            on t.EmployeeID equals e.EmployeeID
+                            where t.EmployeeID == id
+                            select new
+                            {
+                                Anställd = e.FirstName + " " + e.LastName,
+                                Veckotimmar = totalHours
+                            }).ToArrayAsync();
+
+            return await empHours;
         }
     }
 }

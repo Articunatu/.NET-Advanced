@@ -19,6 +19,6 @@ namespace _05___Company_API.Services
         Task<Employee> Update(Employee uptEmp, int id);
         Task<Employee> Delete(Employee delEmp);
         Task<IEnumerable<Employee>> ProjectsEmployees(int id);
-        Task<Employee> WeeklyHours(int week, int id);
+        Task<object> WeeklyHours(int week, int id);
     }
 }
