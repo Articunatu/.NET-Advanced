@@ -72,15 +72,14 @@ namespace _05___Company_API.Controllers
         }
 
         [HttpPut("e{id}")]
-        public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee employee)
+        public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee uptEmployee)
         {
             try
             {
-                if (id != employee.EmployeeID)
+                if (id != uptEmployee.EmployeeID)
                 {
                     return BadRequest("Employee ID Doesn't Exist.....");
                 }
-                var uptEmployee = await _iemployee.Read(id);
                 if (uptEmployee == null)
                 {
                     return NotFound($"Emplyee with ID {id} Not Found........");
