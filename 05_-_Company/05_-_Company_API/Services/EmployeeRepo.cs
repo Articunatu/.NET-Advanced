@@ -64,7 +64,7 @@ namespace _05___Company_API.Services
                              on t.ProjectID equals p.ProjectID
                              where p.ProjectID == id
                              select e
-                           ).ToListAsync();
+                           ).Distinct().ToListAsync();
             return await employees;
         }
 
@@ -76,8 +76,7 @@ namespace _05___Company_API.Services
                          join e in _context.Employees
                          on t.EmployeeID equals e.EmployeeID
                          where t.EmployeeID == id
-                         where calendar.GetWeekOfYear
-                         (t.WeekDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday) == week
+                         where t.Week == week
                          select t.Hours).ToArray();
 
             int totalHours = 0;
@@ -94,7 +93,7 @@ namespace _05___Company_API.Services
                             {
                                 Anställd = e.FirstName + " " + e.LastName,
                                 Veckotimmar = totalHours
-                            }).ToArrayAsync();
+                            }).Distinct().ToArrayAsync();
 
             return await empHours;
         }

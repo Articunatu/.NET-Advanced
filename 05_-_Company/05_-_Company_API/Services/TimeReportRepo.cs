@@ -24,7 +24,7 @@ namespace _05___Company_API.Services
 
         public async Task<TimeReport> Read(int id)
         {
-            return await _context.TimeReports.FirstOrDefaultAsync(t => t.ProjectID == id);
+            return await _context.TimeReports.FirstOrDefaultAsync(t => t.TR_ID == id);
         }
 
         public async Task<IEnumerable<TimeReport>> ReadAll()
@@ -36,7 +36,7 @@ namespace _05___Company_API.Services
         {
             var updated = await _context.TimeReports.FirstOrDefaultAsync(p => p.TR_ID == newTimeReport.TR_ID);
             updated.Hours = newTimeReport.Hours;
-            updated.WeekDate = newTimeReport.WeekDate;
+            updated.Week = newTimeReport.Week;
             await _context.SaveChangesAsync();
             return newTimeReport;
         }

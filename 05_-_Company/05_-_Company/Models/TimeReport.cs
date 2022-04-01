@@ -13,6 +13,6 @@ namespace _05___Company_DB.Models
         [Range(1,8)]
         public int Hours { get; set; }
         [Required(ErrorMessage = "Om inget datum anges kan lönen hamna på fel månad!")]
-        public DateTime WeekDate { get; set; }
+        public int Week { get; set; }
     }
 }

@@ -127,20 +127,20 @@ namespace _05___Company_API.Controllers
         [HttpGet("week{week}/emp{eid}")]
         public async Task<ActionResult<object>> ReadHours(int week, int eid)
         {
-            try
+            //try
+            //{
+            var employeesHours = await _iemployee.WeeklyHours(week, eid);
+            if (employeesHours == null)
             {
-                var employeesHours = await _iemployee.WeeklyHours(week, eid);
-                if (employeesHours == null)
-                {
-                    return NotFound();
-                }
-                return employeesHours;
+                return NotFound();
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to retrieve the chosen week and employee from database.....");
-            }
+            return employeesHours;
+            //}
+            //catch (Exception)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //                        "Error to retrieve the chosen week and employee from database.....");
+            //}
         }
     }
 }

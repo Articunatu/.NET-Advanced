@@ -32,11 +32,11 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to create new project to database.....");
+                                    "Error to create new time report to database.....");
             }
         }
 
-        [HttpGet("e{id}")]
+        [HttpGet("tr{id}")]
         public async Task<ActionResult<TimeReport>> ReadTimeReport(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to retrieve the chosen project from database.....");
+                                    "Error to retrieve the chosen time report from database.....");
             }
         }
 
@@ -65,33 +65,33 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve projects from database.....");
+                    "Error to retrieve time reports from database.....");
             }
         }
 
-        [HttpPut("e{id}")]
+        [HttpPut("tr{id}")]
         public async Task<ActionResult<TimeReport>> UpdateTimeReport(int id, TimeReport uptTimeReport)
         {
             try
             {
                 if (id != uptTimeReport.ProjectID)
                 {
-                    return BadRequest("Project ID Doesn't Exist.....");
+                    return BadRequest("Time Report ID Doesn't Exist.....");
                 }
                 if (uptTimeReport == null)
                 {
-                    return NotFound($"Project with ID {id} Not Found........");
+                    return NotFound($"Time Report with ID {id} Not Found........");
                 }
                 return await _iTimeReport.Update(uptTimeReport);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to update project to database.....");
+                                    "Error to update time report to database.....");
             }
         }
 
-        [HttpDelete("e{id}")]
+        [HttpDelete("tr{id}")]
         public async Task<ActionResult<TimeReport>> DeleteTimeReport(int id)
         {
             try
@@ -99,14 +99,14 @@ namespace _05___Company_API.Controllers
                 var delTimeReport = await _iTimeReport.Read(id);
                 if (delTimeReport == null)
                 {
-                    return NotFound($"Project with ID {id} Not Found..........");
+                    return NotFound($"Time Report with ID {id} Not Found..........");
                 }
                 return await _iTimeReport.Delete(delTimeReport);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to delete project from database.....");
+                                    "Error to delete time Report from database.....");
             }
         }
     }
