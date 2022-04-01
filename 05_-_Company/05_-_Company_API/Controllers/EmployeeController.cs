@@ -3,8 +3,6 @@ using _05___Company_DB.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace _05___Company_API.Controllers
@@ -84,7 +82,7 @@ namespace _05___Company_API.Controllers
                 {
                     return NotFound($"Emplyee with ID {id} Not Found........");
                 }
-                return await _iemployee.Update(uptEmployee, id);
+                return await _iemployee.Update(uptEmployee);
             }
             catch (Exception)
             {

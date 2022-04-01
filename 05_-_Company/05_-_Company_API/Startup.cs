@@ -34,7 +34,9 @@ namespace _05___Company_API
             services.AddDbContext<CompanyDbContext>(options=> 
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
-            //services.AddScoped(EmployeeRepo, ICompany<Employee);
+            services.AddScoped<IEmployee, EmployeeRepo>();
+            services.AddScoped<ICompany<Project>, ProjectsRepo>();
+            services.AddScoped<ICompany<TimeReport>, TimeReportRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

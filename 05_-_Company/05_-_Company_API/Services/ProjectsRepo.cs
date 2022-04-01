@@ -1,47 +1,52 @@
-﻿using _05___Company_DB.Models;
-using System;
+﻿using _05___Company_API.Database;
+using _05___Company_DB.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace _05___Company_API.Services
 {
     public class ProjectsRepo : ICompany<Project>
     {
-        public Task<Project> Create(Project newProject)
+        private CompanyDbContext _context;
+
+        public ProjectsRepo(CompanyDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-
-        public Task<Project> Read(int id)
+        public async Task<Project> Create(Project newProject)
         {
-            throw new NotImplementedException();
+            var created = await _context.Projects.AddAsync(newProject);
+            await _context.SaveChangesAsync();
+            return created.Entity;
         }
 
-        public Task<IEnumerable<Project>> ReadAll()
+        public async Task<Project> Read(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Projects.FirstOrDefaultAsync(p => p.ProjectID == id);
         }
 
-        public Task<Project> Update(Project uptProject, int id)
+        public async Task<IEnumerable<Project>> ReadAll()
         {
-            throw new NotImplementedException();
+            return await _context.Projects.ToListAsync();
         }
 
-        public Task<Project> Delete(Project delProject)
+        public async Task<Project> Update(Project newProject)
         {
-            throw new NotImplementedException();
+            var updated = await _context.Projects.FirstOrDefaultAsync(p => p.ProjectID == newProject.ProjectID);
+            updated.Title = newProject.Title;
+            updated.Description = newProject.Description;
+            await _context.SaveChangesAsync();
+            return newProject;
         }
 
-        public Task<IEnumerable<Project>> ProjectsEmployees(int id)
+        public async Task<Project> Delete(Project delProject)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Project> WeeklyHours(Project Entity, int id)
-        {
-            throw new NotImplementedException();
+            var deleted = await _context.Projects.FirstOrDefaultAsync(p => p.ProjectID == delProject.ProjectID);
+            _context.Projects.Remove(deleted);
+            await _context.SaveChangesAsync();
+            return deleted;
         }
     }
 }

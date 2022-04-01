@@ -8,7 +8,7 @@ namespace _05___Company_API.Services
     {
         Task<T> Create(T Entity);
         Task<T> Read(int id); Task<IEnumerable<T>> ReadAll();
-        Task<T> Update(T Entity, int id);
+        Task<T> Update(T Entity);
         Task<T> Delete(T Entity);
     }
 
@@ -16,7 +16,7 @@ namespace _05___Company_API.Services
     {
         Task<Employee> Create(Employee newEmp);
         Task<Employee> Read(int id); Task<IEnumerable<Employee>> ReadAll();
-        Task<Employee> Update(Employee uptEmp, int id);
+        Task<Employee> Update(Employee uptEmp);
         Task<Employee> Delete(Employee delEmp);
         Task<IEnumerable<Employee>> ProjectsEmployees(int id);
         Task<object> WeeklyHours(int week, int id);

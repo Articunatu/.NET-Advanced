@@ -35,9 +35,9 @@ namespace _05___Company_API.Services
             return await _context.Employees.ToListAsync();
         }
 
-        public async Task<Employee> Update(Employee uptEmployee, int id)
+        public async Task<Employee> Update(Employee uptEmployee)
         {
-            var updated = await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeID == id);
+            var updated = await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeID == uptEmployee.EmployeeID);
             updated.Address = uptEmployee.Address;
             updated.PhoneNumber = uptEmployee.PhoneNumber;
             updated.PostalCode = uptEmployee.PostalCode;

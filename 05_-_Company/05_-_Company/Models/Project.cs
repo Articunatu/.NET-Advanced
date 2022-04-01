@@ -6,6 +6,7 @@ namespace _05___Company_DB.Models
     {
         [Key]
         public int ProjectID { get; set; }
+        [Required(ErrorMessage = "Ett projekt måste ha en titel!"), ]
         public string Title { get; set; }
         public string Description { get; set; }
     }
