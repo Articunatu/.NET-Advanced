@@ -74,7 +74,7 @@ namespace _05___Company_API.Controllers
         {
             try
             {
-                if (id != uptTimeReport.ProjectID)
+                if (id != uptTimeReport.TR_ID)
                 {
                     return BadRequest("Time Report ID Doesn't Exist.....");
                 }
