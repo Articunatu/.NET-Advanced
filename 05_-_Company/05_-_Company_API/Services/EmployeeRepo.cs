@@ -70,20 +70,17 @@ namespace _05___Company_API.Services
 
         public async Task<object> WeeklyHours(int week, int id)
         {
-            Calendar calendar = new CultureInfo("sv-SV").Calendar;
+            int totalHours = (from t in _context.TimeReports
+                              join e in _context.Employees
+                              on t.EmployeeID equals e.EmployeeID
+                              where t.EmployeeID == id
+                              where t.Week == week
+                              select t.Hours).ToArray().Sum();
 
-            int[] hours = (from t in _context.TimeReports
-                         join e in _context.Employees
-                         on t.EmployeeID equals e.EmployeeID
-                         where t.EmployeeID == id
-                         where t.Week == week
-                         select t.Hours).ToArray();
-
-            int totalHours = 0;
-            foreach (var item in hours)
-            {
-                totalHours += item;
-            }
+            //foreach (var item in hours) ///Better performance
+            //{
+            //    totalHours += item;
+            //}
 
             var empHours = (from t in _context.TimeReports
                             join e in _context.Employees
