@@ -36,7 +36,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpGet("tr{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<TimeReport>> ReadTimeReport(int id)
         {
             try
@@ -69,7 +69,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpPut("tr{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<TimeReport>> UpdateTimeReport(int id, TimeReport uptTimeReport)
         {
             try
@@ -91,7 +91,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpDelete("tr{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<TimeReport>> DeleteTimeReport(int id)
         {
             try

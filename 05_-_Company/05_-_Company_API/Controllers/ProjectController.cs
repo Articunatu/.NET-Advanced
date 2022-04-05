@@ -36,7 +36,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpGet("p{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Project>> ReadSingleProject(int id)
         {
             try
@@ -69,7 +69,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpPut("p{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Project>> UpdateProject(int id, Project uptProject)
         {
             try
@@ -91,7 +91,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpDelete("p{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(int id)
         {
             try

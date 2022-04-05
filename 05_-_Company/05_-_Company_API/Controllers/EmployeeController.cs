@@ -36,7 +36,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpGet("e{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> ReadEmployee(int id)
         {
             try
@@ -69,7 +69,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpPut("e{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee uptEmployee)
         {
             try
@@ -91,7 +91,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpDelete("e{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
             try
@@ -110,7 +110,7 @@ namespace _05___Company_API.Controllers
             }
         }
 
-        [HttpGet("p{projectId}")]
+        [HttpGet("project{projectId}")]
         public async Task<ActionResult<Employee>> ReadProjectsEmployees(int projectId)
         {
             try
@@ -124,7 +124,7 @@ namespace _05___Company_API.Controllers
             }
         }
         
-        [HttpGet("week{week}/emp{eid}")]
+        [HttpGet("week{week}/employee{eid}")]
         public async Task<ActionResult<object>> ReadHours(int week, int eid)
         {
             //try
