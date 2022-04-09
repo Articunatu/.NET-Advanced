@@ -29,7 +29,7 @@ namespace _05___Company_API.Services
 
         public async Task<IEnumerable<Project>> ReadAll()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects.ToArrayAsync();
         }
 
         public async Task<Project> Update(Project newProject)

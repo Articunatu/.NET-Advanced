@@ -1,9 +1,7 @@
 ﻿using _05___Company_API.Database;
 using _05___Company_DB.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,7 +30,7 @@ namespace _05___Company_API.Services
 
         public async Task<IEnumerable<Employee>> ReadAll()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.ToArrayAsync();
         }
 
         public async Task<Employee> Update(Employee uptEmployee)

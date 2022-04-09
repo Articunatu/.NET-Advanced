@@ -29,7 +29,7 @@ namespace _05___Company_API.Services
 
         public async Task<IEnumerable<TimeReport>> ReadAll()
         {
-            return await _context.TimeReports.ToListAsync();
+            return await _context.TimeReports.ToArrayAsync();
         }
 
         public async Task<TimeReport> Update(TimeReport newTimeReport)
