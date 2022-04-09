@@ -51,7 +51,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to retrieve the chosen time report from database.....");
+                                    "Error to read the chosen time report from database.....");
             }
         }
 
@@ -65,7 +65,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve time reports from database.....");
+                    "Error to read all time reports from database.....");
             }
         }
 

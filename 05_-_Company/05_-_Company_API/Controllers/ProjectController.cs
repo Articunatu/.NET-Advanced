@@ -51,7 +51,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to retrieve the chosen project from database.....");
+                                    "Error to read the chosen project from database.....");
             }
         }
 
@@ -65,7 +65,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve projects from database.....");
+                    "Error to read all projects from database.....");
             }
         }
 

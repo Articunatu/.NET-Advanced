@@ -51,7 +51,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                                    "Error to retrieve the chosen employee from database.....");
+                                    "Error to read the chosen employee from database.....");
             }
         }
 
@@ -65,7 +65,7 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve employees from database.....");
+                    "Error to read all employees from database.....");
             }
         }
 
@@ -120,27 +120,27 @@ namespace _05___Company_API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error to retrieve employees of this project from database.....");
+                    "Error to read all employees of this project from database.....");
             }
         }
         
-        [HttpGet("week{week}/employee{eid}")]
-        public async Task<ActionResult<object>> ReadHours(int week, int eid)
+        [HttpGet("week{week}/employee{employeeId}")]
+        public async Task<ActionResult<object>> ReadHours(int week, int employeeId)
         {
-            //try
-            //{
-            var employeesHours = await _iemployee.WeeklyHours(week, eid);
-            if (employeesHours == null)
+            try
             {
-                return NotFound();
+                var employeesHours = await _iemployee.WeeklyHours(week, employeeId);
+                if (employeesHours == null)
+                {
+                    return NotFound();
+                }
+                return employeesHours;
             }
-            return employeesHours;
-            //}
-            //catch (Exception)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //                        "Error to retrieve the chosen week and employee from database.....");
-            //}
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                                    "Error to read the chosen week and employee from database.....");
+            }
         }
     }
 }
