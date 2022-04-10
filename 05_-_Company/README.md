@@ -30,4 +30,7 @@ The ToArrayAsync method would drag down the performance with really large databa
 LINQ vs LOOPS
 In one part of the code I used a SUM-method from the LINQ library in order to calculate the total amount of hours an employee has worked. If you wanted better performance from the project you could use a custom loop, because the linq methods already have extra loops. Normally you would mainly choose to use linq when you want to make the code more readable, but in this case I choose it only to learn to use linq more only for the sake of learning it better
 
+DATE
+Date in TimeReport was originally going to be of the DateTime type, with each time report being connected to a specific date. Then in the method WeeklyHours, the date would be converted to the correct week (of an integer type). The conversion never worked out, so instead each time report has an integer variable for which week the time report was written. 
+
  ![](https://user-images.githubusercontent.com/62301779/137586431-9c02608b-d33a-4fae-8a64-c5799a4731f9.png)
