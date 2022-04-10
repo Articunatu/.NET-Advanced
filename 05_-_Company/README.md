@@ -28,7 +28,7 @@ PERFORMANCE
 The ToArrayAsync method would drag down the performance with really large databases, where you want to fetch around a million unique records. Thus it’s mostly suited for smaller projects such as this one.
 
 LINQ vs LOOPS
-In one part of the code I used a SUM-method from the LINQ library in order to calculate the total amount of hours an employee has worked. If you wanted better performance from the project you could use a custom loop, because the linq methods already have extra loops. Normally you would mainly choose to use linq when you want to make the code more readable, but in this case I choose it only to learn to use linq more only for the sake of learning it better
+In one part of the code I used a SUM-method from the LINQ library in order to calculate the total amount of hours an employee has worked. If you wanted better performance from the project you could use a custom loop, because the linq methods already have extra loops in their source code. Normally you would mainly choose to use linq when you want to make the code more readable, but in this case I choose it only to learn to use linq more only for the sake of learning it better. It should also be noted that this WeeklyHours method could have been even shorter by using Include() instead of a join query.
 
 DATE
 Date in TimeReport was originally going to be of the DateTime type, with each time report being connected to a specific date. Then in the method WeeklyHours, the date would be converted to the correct week (of an integer type). The conversion never worked out, so instead each time report has an integer variable for which week the time report was written. 
