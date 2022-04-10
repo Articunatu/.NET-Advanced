@@ -2,13 +2,13 @@
 
 Fifth and final project of the Advaneced .NET course
 *Consists of:*
-- REST-API
+- REST-API 
 - Database using Entity Framework
 - Usage of LINQ
 - Async tasks
 
 ER Diagram over database models:
-![Skärmbild 2021-10-16 135317](https://user-images.githubusercontent.com/62301779/137586709-6bd3b484-6402-4159-a2b1-c8a1f9357598.png)
+![ER Diagram](https://github.com/Articunatu/.NET-Advanced/blob/main/05_-_Company/ER-Diagram.png)
 
 UML Diagram for services:
 ![Skärmbild 2021-10-16 135317](https://user-images.githubusercontent.com/62301779/137586709-6bd3b484-6402-4159-a2b1-c8a1f9357598.png)
