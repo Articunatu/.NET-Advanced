@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _05___Company_DB.Models
@@ -22,5 +23,6 @@ namespace _05___Company_DB.Models
         public string SecurityNumber { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Salary { get; set; }
+        public ICollection<TimeReport> TimeReports { get; set; }
     }
 }

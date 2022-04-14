@@ -25,7 +25,9 @@ namespace _05___Company_API.Services
 
         public async Task<Employee> Read(int id)
         {
-            return await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeID == id);
+            //return await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeID == id);
+            //Vi vill kunna hämta ut detaljerad information om en specifik anställd och dennas tidsrapporter 
+            return await _context.Employees.Include(t => t.TimeReports).FirstOrDefaultAsync(e => e.EmployeeID == id);
         }
 
         public async Task<IEnumerable<Employee>> ReadAll()
