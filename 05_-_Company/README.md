@@ -1,6 +1,6 @@
 # .NET-Advanced
 
-Fifth and final project of the Advaneced .NET course, 
+Fifth and final project of the Advanced .NET course, 
 *Consists of:*
 - REST-API 
 - Database using Entity Framework
