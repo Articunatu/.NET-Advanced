@@ -3,7 +3,7 @@
 Fifth and final project of the Advanced .NET course, 
 *Consists of:*
 - REST-API 
-- Database using Entity Framework
+- Database using Entity Framework, coded first
 - Usage of LINQ
 - Async tasks
 
